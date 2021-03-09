@@ -66,7 +66,9 @@ console.log(playlist);
 const profile = {
 
     nameUser: 'Mango',
+    nickname: 'givi1122',
     location: 'Odessa, Ukraine',
+
     avatar: null,
         stats : {
         likes: 5,
@@ -77,5 +79,59 @@ const profile = {
 const { nameUser, location, stats: { likes,followers } } = profile
 // followers : myFollowers = 7
 console.log(profile);
+
+
+
 // Деструктуризация массивов 
 
+const rgb = [255, 100, 80];
+
+ const [x, y, z] = rgb;
+// если нужно пропустить свойство - ставиться запятая и пробел в том месте 
+
+
+const authors = {
+    kiwi: 5 ,
+    poly: 7,
+    ajax: 8,
+    mango : 11,
+};
+
+const entries = Object.entries(authors);
+
+for (const entry of entries ) {
+    const [nameAuthors, ratingAuthors] = entry
+};
+
+console.log(authors)
+console.table(authors);
+
+
+// операция REST - сбор 
+
+const file = {
+
+    user: 'Mango',
+    location: 'Odessa, Ukraine',
+
+    avatar: null,
+        stats : {
+        likes: 158,
+        followers: 512,
+    }
+};
+
+const { user, location :currentLocation, ...resT } = file;
+
+console.log(user, location);
+console.log(resT)
+
+
+
+// Паттерн "Объект Настроек"
+
+const showProfileInfo = function ({ nameUser, location, nickname, stats: { likes, followers } }) {  
+ console.log( nameUser, nickname, location)
+};
+ 
+showProfileInfo(profile);
