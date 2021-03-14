@@ -528,8 +528,11 @@ function makeTask(data) {
 
 
     // 34/41
+
+    // До сих пор мы рассматривали объекты только как хранилища взаимосвязанных данных, например информация о книге и т. п. Объекты-хранилища обычно находятся в массиве таких же объектов, который представляет коллекцию однотипных элементов.Объекты могут хранить не только данные, но и функции для работы с этими данными - методы. Если значение свойства это функция, такое свойство называется методом объекта.
+
     const bookShelf = {
-  // До сих пор мы рассматривали объекты только как хранилища взаимосвязанных данных, например информация о книге и т. п. Объекты-хранилища обычно находятся в массиве таких же объектов, который представляет коллекцию однотипных элементов.Объекты могут хранить не только данные, но и функции для работы с этими данными - методы. Если значение свойства это функция, такое свойство называется методом объекта.
+  
   books: ['Последнее королевство', 'Страж снов'],
   getBooks() {
     return 'Возвращаем все книги';
@@ -584,11 +587,10 @@ const bookShelf = {
     // 38/41
     const atTheOldToad = {
   potions: ['Зелье скорости', 'Дыхание дракона', 'Каменная кожа'],
-  addPotion(potionName) {
-    // Пиши код ниже этой строки
-    this.potions.push(potionName);
+      addPotion(potionName) {
     
-    // Пиши код выше этой строки
+        this.potions.push(potionName);
+   
   },
 };
 
@@ -608,9 +610,57 @@ const IndexPotionName = this.potions.indexOf(potionName)
 const atTheOldToad = {
   potions: ['Зелье скорости', 'Дыхание дракона', 'Каменная кожа'],
   updatePotionName(oldName, newName) {
-    // Пиши код ниже этой строки
+   
  const IndexPotionName = this.potions.indexOf(oldName);
     this.potions.splice(IndexPotionName, 1, newName);
-    // Пиши код выше этой строки
+    
   },
-};
+    };
+    
+
+    // 41/41
+const atTheOldToad = {
+    potions: [
+        { name: 'Зелье скорости', price: 460 },
+        { name: 'Дыхание дракона', price: 780 },
+        { name: 'Каменная кожа', price: 520 },
+    ],
+    // Пиши код ниже этой строки
+    getPotions() {
+        const { potions } = this;
+        return potions;
+    },
+  
+    addPotion(potionName) {
+        const { potions } = this;
+        if (potions.includes(potionName)) {
+
+            return `Зелье ${potionName} уже есть в инвентаре!`
+        }
+        potions.push(potionName);
+    },
+  
+    removePotion(potionName) {
+        const { potions } = this;
+
+        for (let i = 0; i < potions.length; i += 1) {
+            const { name } = potions[i];
+            if (potionName === -1) { return `Зелья ${potionName} нет в инвентаре!` }
+            if (potionName === name) {
+                console.log(`Нашли такую позицию: -, ${potionName}`);
+                console.log(i);
+                potions.splice(i, 1);
+            }
+        }
+    },
+    updatePotionName(oldName, newName) {
+        console.table(this.potions);
+        for (let i = 0; i < this.potions.length; i += 1) {
+            console.log(this.potions[i].name);
+            if (oldName === this.potions[i].name) {
+                console.log(this.potions[i].name);
+                this.potions[i].name = newName;
+            };
+        };
+    }
+}

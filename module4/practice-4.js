@@ -1,4 +1,6 @@
 // замыкание
+// функция результатом свой работы может возвращать другой функцию.  
+// возвращаемая функция во время вызова будет иметь доступ ко всем локальным переменным(области видимости) родительской функции (той из которой ее вернули)
 
 const MakeCheff = function (nameCheff) {
     
@@ -48,8 +50,10 @@ const salaryManager = salaryManagerFactory('Сергей Лялин', 5000);
 
 console.log(salaryManager.current());
 salaryManager.lower(2500);
+
 console.log(salaryManager.current());
 salaryManager.raise(1000);
+
 console.log(salaryManager.raise(20000));
 console.log(salaryManager.current());
 
@@ -107,3 +111,94 @@ const userUpdate = {
 // присвоить объекту функцию 
 userUpdate.showUserTag = showTag;
 userUpdate.showUserTag();
+
+
+// callback 
+// делай математику
+const DoMath = function (a, b, callback) {
+    
+    const result = callback(a, b);
+    console.log(result);
+    
+};
+
+const sum = function (c, d) {
+    return c + d;
+};
+
+
+const sub = function (c, d) {
+    return c - d;
+}
+
+DoMath(5, 15, sum);
+DoMath(10, 3, sub);
+
+// дай мне свои колбэки 
+const onGetPositionSuccess = function (position) {
+    console.log(' вызов onGetPositionSuccess');
+    console.log(position);
+};
+
+const onGetPositionError = function (error) {
+    console.log(error);
+};
+
+window.navigator.geolocation.getCurrentPosition (
+    onGetPositionSuccess,
+onGetPositionError,
+);
+
+// фильтрация 
+
+const filter = function (array, test) {
+
+    const filtredArray = [];
+
+    for (const el of array) {
+        console.log(el);
+        const passed = test(el);
+        if (passed) {
+            filtredArray.push(el);
+        }
+    }
+    return filtredArray;
+};
+
+// 1 = надо передать функцию
+// 2 функция получает эллемент массива 
+// 3 если эллемент массива удовлетворяет условию то функция вернет true 
+// 4 если эллемент массива НЕ удовлетворяет условию то функция вернет false 
+
+const callback1 = function (value) {
+    return value >= 3;
+    // операторы сравнения возвращают true или false сами по себе
+};
+
+
+const r1 = filter([1, 2, 3, 4, 5], callback1); //передаем в фильтер  функцию колбэк как второй аргумент
+console.log(r1)
+// 
+const r2 = filter([1, 2, 3, 4, 5, 6, 7, 8], function (value) {
+    return value <= 4;
+}
+);
+console.log(r2)
+
+const fruits = [
+    {name: 'apple', quantity:200, isFresh: true},
+    {name: 'mango', quantity:150, isFresh: false},
+    {name: 'bananas', quantity:100, isFresh: true},
+]
+
+
+// реиспользуемая логика 
+const getFruitWithQuantity = function (fruit) {
+    return fruit.quantity >= 120;
+}
+
+const r3 = filter(fruits, getFruitWithQuantity);
+console.log(r3)
+
+
+// this 
