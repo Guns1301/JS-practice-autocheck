@@ -63,6 +63,8 @@ const firstTag = apartment.tags[0];
 const lastTag = apartment.tags[2];
 
 // 5/41
+// Второй способ получить доступ к свойству объекта это синтаксис обьект["ключ_свойства"]. Похоже на обращение к элементу массива с отличием в том, что в скобках указывается не индекс элемента, а имя свойства как строка.
+
 const apartment = {
   imgUrl: 'https://via.placeholder.com/640x480',
   descr: 'Просторная квартира в центре',
@@ -72,10 +74,10 @@ const apartment = {
 };
 
 // обращение в [] скобках обязательно ' строка ' !!!
-const aptRating = apartment['rating'];
-const aptDescr = apartment['descr'];
-const aptPrice = apartment['price'];
-const aptTags = apartment['tags'];
+const aptRating = apartment['rating']; //4
+const aptDescr = apartment['descr']; //'Просторная квартира в центре'
+const aptPrice = apartment['price']; // 2153
+const aptTags = apartment['tags']; // 'premium', 'promoted', 'top'
 
 // 6/41
 
@@ -139,7 +141,7 @@ const product = {
 
 
 // 9/41
-
+// ! Вычисляемые свойства
 const emailInputName = 'email';
 const passwordInputName = 'password';
 
@@ -151,7 +153,10 @@ const credentials = {
 
 
 // 10/41
+// * for...in
+// ! В отличии от массива или строки, объект - это не итерируемая сущность, то есть его нельзя перебрать циклами for или for...of. Для перебора объектов используется специальный цикл for...in, который перебирает ключи объекта  for (key in object) { инструкции }
 
+// Переменная key доступная только в теле цикла. На каждой итерации в неё будет записано значение ключа (имя) свойства. Для того чтобы получить значение свойства с таким ключом (именем), используется синтаксис квадратных скобок.
 const apartment = {
   descr: 'Просторная квартира в центре',
   rating: 4,
@@ -168,7 +173,7 @@ for (const key in apartment) {
 };
 
 // 11/41
-
+// *Метод hasOwnProperty()
 const keys = [];
 const values = [];
 const advert = {
@@ -207,6 +212,10 @@ for ( const key in object ){
 }
 
 // 13/41
+// *Метод Object.keys()
+// У встроенного класса Object есть несколько полезных методов для работы с объектами. Первый из них это Object.keys(obj), который принимает объект и возвращает массив ключей его собственных свойств. Если в объекте нет свойств, метод вернёт пустой массив.
+
+// *Скомбинировав результат Object.keys() и цикл for...of можно удобно перебрать собственные свойства объекта, не прибегая к использованию архаического цикла for...in с проверками принадлежности свойств.
 
 const apartment = {
   descr: 'Просторная квартира в центре',
@@ -214,13 +223,12 @@ const apartment = {
   price: 2153,
 };
 const values = [];
-// Пиши код ниже этой строки
-const keys = Object.keys(apartment);
 
-for (const key of keys) {
+
+const keys = Object.keys(apartment); // тут буквально массив ключей объекта apartment 
+
+for (const key of keys) { // перебор массива
   values.push(apartment[key]);
-                        
-  if (apartment.hasOwnProperty(key)){}
 };
 
 
@@ -234,6 +242,7 @@ function countProps(object) {
 }
 
 // 15/41
+// *Метод Object.values()
 
 const apartment = {
   descr: 'Просторная квартира в центре',
@@ -249,7 +258,7 @@ const values = Object.values(apartment);
 function countTotalSalary(salaries) {
   let totalSalary = 0;
   
-const values = Object.values(salaries);
+const values = Object.values(salaries); // массив значений
   for (const value of values){
   totalSalary += value
   };
@@ -258,7 +267,9 @@ const values = Object.values(salaries);
 }
 
 // 17/41
+// В стандартный набор повседневных задач разработчика входит манипуляция массивом однотипных объектов. Это значит что все объекты в массиве гарантированно будут иметь одинаковый набор свойств, но с разными значениями.
 
+// Для перебора такого массива используется стандартный цикл for...of. Значения свойств каждого объекта можно получить используя синтаксис «через точку», так как в каждом объекте набор свойств и их имена будут одинаковые, отличаются только значения.
 
 const colors = [
   { hex: '#f44336', rgb: '244,67,54' },
@@ -271,10 +282,12 @@ const hexColors = [];
 const rgbColors = [];
 
 for (const color of colors) {
+  // в переменной color лежит объект { hex: '#f44336', rgb: '244,67,54' } на каждой итерации новый 
   hexColors.push(color.hex) 
-  // если в объекте colors есть имя свойсвта hex тогда пуш его в новый массив 
+  // если в объекте colors есть имя свойсвта hex тогда push его в новый массив 
   rgbColors.push(color.rgb)
 };
+console.log(hexColors)
 
 
 // 18/41
@@ -319,7 +332,7 @@ function getAllPropValues(propName) {
 }
   
 // 20/41
-
+// Напиши функцию calculateTotalPrice(productName) которая принимает один параметр productName - название товара. Функция должна вернуть общую стоимость (цена * количество) товара с таким именем из массива products.
 
 const products = [
   { name: 'Радар', price: 1300, quantity: 4 },
@@ -370,6 +383,11 @@ const meanTemperature = (yesterday + today + tomorrow) / 3;
 
 
 // 23/41
+// *Изменение имени переменной
+// При деструктуризации можно изменить имя переменной в которую распаковывается значение свойства. Сначала пишем имя свойства из которого хотим получить значение, после чего ставим двоеточие и пишем имя переменной в которую необходимо поместить значение этого свойства.
+
+// Задание
+// Замени объявления переменных highYesterday, highToday, highTomorrow и highIcon одной операцией деструктуризации свойств объекта highTemperatures.Задай значение по умолчанию для highIcon - строку "https://www.flaticon.com/svg/static/icons/svg/2204/2204346.svg".
 
 const highTemperatures = {
   yesterday: 28,
@@ -396,9 +414,16 @@ const colors = [
 
 const hexColors = [];
 const rgbColors = [];
-// Для того, чтобы сократить количество повторений, можно деструктуризировать свойства объекта в локальные переменные в теле цикла.
-// Если в объекте немного свойств, деструктуризацию можно выполнить прямо в месте объявления переменной color 
 
+// Если в объекте немного свойств, деструктуризацию можно выполнить прямо в месте объявления переменной color
+// for (const color of colors) {
+//   const {hex,rgb} = colors;
+  
+//   hexColors.push(hex);
+//   rgbColors.push(rgb);
+// }
+
+// Для того, чтобы сократить количество повторений, можно деструктуризировать свойства объекта в локальные переменные в теле цикла.
 for (const { hex, rgb } of colors) {
   hexColors.push(hex);
   rgbColors.push(rgb);
@@ -406,6 +431,7 @@ for (const { hex, rgb } of colors) {
   }
 
 //  25/41
+//* глубокая деструктуризация объекта
 
 const forecast = {
   today: {
@@ -418,16 +444,23 @@ const forecast = {
     high: 31,
   },
 };
-// глубокая деструктуризация объекта
+
 const { 
   // присвоение локальной перенной другое имя low: lowToday
-today: { low: lowToday, high : highToday , icon: todayIcon = 'https://www.flaticon.com/svg/static/icons/svg/861/861059.svg'},
-  // присвоение значения несуществующей переменной - icon: todayIcon =
-tomorrow: {low: lowTomorrow,high:  highTomorrow, icon: tomorrowIcon = 'https://www.flaticon.com/svg/static/icons/svg/2204/2204346.svg'}
+  today: {
+    low: lowToday,
+    high: highToday,
+    icon: todayIcon = 'https://www.flaticon.com/svg/static/icons/svg/861/861059.svg' },
+  // присвоение значения несуществующей переменной - icon: todayIcon = 'значение по умолчанию'
+  tomorrow: {
+    low: lowTomorrow, high:
+    highTomorrow,
+    icon: tomorrowIcon = 'https://www.flaticon.com/svg/static/icons/svg/2204/2204346.svg' }
 
 } = forecast
 
 // 26/41
+// *Паттерн «Объект настроек»
 
 // Если функция принимает более двух-трёх аргументов, очень просто запутаться в какой последовательности что передавать. В результате получается очень неочевидный код в месте её вызова.
 function calculateMeanTemperature(forecast) {
@@ -442,6 +475,8 @@ function calculateMeanTemperature(forecast) {
   return (todayLow + todayHigh + tomorrowLow + tomorrowHigh) / 4;
 }
 
+
+// * Операция spread при передаче аргументов
 // 27/41
 // Синтаксис ... (spread) позволяет распылить коллекцию элементов (массив, строку или объект) в место, где ожидается набор отдельных значений. Конечно есть некоторые ограничения, например нельзя распылить массив в объект и наоборот.
 
